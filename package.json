@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "@uidotdev/usehooks": "^2.4.1",
     "lucide-react": "^1.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
@@ -23,6 +24,7 @@
     "dev": "vite",
     "lint": "biome check",
     "lint:fix": "biome check --write",
+    "pack:dist": "npm run build && cd dist && npm pack",
     "preview": "vite preview"
   },
   "type": "module",
