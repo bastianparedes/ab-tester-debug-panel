@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 type SetValue<T> = React.Dispatch<React.SetStateAction<T>>;
 
-function useSessionStorage<T>(key: string, initialValue: T | null): [T | null, SetValue<T | null>] {
-  const readValue = (): T | null => {
+export function useSessionStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
+  const readValue = (): T => {
     try {
       const item = window.sessionStorage.getItem(key);
       return item ? (JSON.parse(item) as T) : initialValue;
@@ -13,11 +13,15 @@ function useSessionStorage<T>(key: string, initialValue: T | null): [T | null, S
     }
   };
 
-  const [storedValue, setStoredValue] = useState<T | null>(readValue);
+  const [storedValue, setStoredValue] = useState<T>(readValue);
 
   useEffect(() => {
     try {
-      window.sessionStorage.setItem(key, JSON.stringify(storedValue));
+      if (storedValue === null) {
+        window.sessionStorage.removeItem(key);
+      } else {
+        window.sessionStorage.setItem(key, JSON.stringify(storedValue));
+      }
     } catch (error) {
       console.error('Error escribiendo en sessionStorage:', error);
     }
@@ -25,5 +29,3 @@ function useSessionStorage<T>(key: string, initialValue: T | null): [T | null, S
 
   return [storedValue, setStoredValue];
 }
-
-export default useSessionStorage;
