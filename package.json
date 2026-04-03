@@ -17,7 +17,7 @@
     "typescript": "~6.0.2",
     "vite": "^8.0.3"
   },
-  "name": "ab-tester-debug-tool",
+  "name": "@ba-tester/debug-panel",
   "private": true,
   "scripts": {
     "build": "tsc -b && vite build",
@@ -28,5 +28,5 @@
     "preview": "vite preview"
   },
   "type": "module",
-  "version": "1.0.0"
+  "version": "1.0.0-beta.0"
 }
