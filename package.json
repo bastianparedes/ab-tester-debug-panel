@@ -16,6 +16,9 @@
     "typescript": "~6.0.2",
     "vite": "^8.0.3"
   },
+  "exports": {
+    ".": "./script.js"
+  },
   "name": "@ba-tester/debug-panel",
   "scripts": {
     "build": "tsc -b && vite build",
@@ -25,5 +28,5 @@
     "preview": "vite preview"
   },
   "type": "module",
-  "version": "0.0.3"
+  "version": "0.0.4"
 }

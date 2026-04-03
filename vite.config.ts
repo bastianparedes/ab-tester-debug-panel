@@ -24,7 +24,7 @@ export default defineConfig({
     lib: {
       entry: './src/entry.tsx',
       name: 'ABTesterDebugTool',
-      fileName: () => 'script-ui.js',
+      fileName: () => 'script.js',
       formats: ['iife'],
     },
   },
