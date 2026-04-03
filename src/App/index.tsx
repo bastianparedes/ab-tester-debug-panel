@@ -7,6 +7,7 @@ const campaigns = window.ba_tester.campaignsData;
 const abTesterCampaignId = 'ab_tester_campaign_id';
 const abTesterVariationId = 'ab_tester_variation_id';
 const abTesterIgnoreRequirements = 'ab_tester_ignore_requirements';
+const abTesterCallDebugPanel = 'ab_tester_call_debug_panel';
 
 const FloatingWidget = () => {
   const [isMinimized, setIsMinimized] = useState(false);
@@ -34,14 +35,25 @@ const FloatingWidget = () => {
     const url = new URL(location.href);
     if (campaignId === null || variationId === null) return;
 
-    url.searchParams.append(abTesterCampaignId, String(campaignId));
-    url.searchParams.append(abTesterVariationId, String(variationId));
-    url.searchParams.append(abTesterIgnoreRequirements, String(ignoreRequirements));
+    url.searchParams.set(abTesterCampaignId, String(campaignId));
+    url.searchParams.set(abTesterVariationId, String(variationId));
+    url.searchParams.set(abTesterIgnoreRequirements, String(ignoreRequirements));
+    url.searchParams.delete(abTesterCallDebugPanel);
 
     navigator.clipboard.writeText(url.toString());
   };
 
-  const applyChanges = () => location.reload();
+  const applyChanges = () => {
+    const url = new URL(location.href);
+    if (campaignId === null || variationId === null) return;
+
+    url.searchParams.set(abTesterCampaignId, String(campaignId));
+    url.searchParams.set(abTesterVariationId, String(variationId));
+    url.searchParams.set(abTesterIgnoreRequirements, String(ignoreRequirements));
+    url.searchParams.set(abTesterCallDebugPanel, String(true));
+
+    location.href = url.toString();
+  }
 
 
   return (
@@ -125,7 +137,7 @@ const FloatingWidget = () => {
             onChange={(e) => setIgnoreRequirements(e.target.checked)}
             className="h-4 w-4 rounded border-blue-300 text-blue-600 focus:ring-blue-500 accent-blue-600"
           />
-          <span className="text-sm font-medium text-gray-800">Activar notificaciones</span>
+          <span className="text-sm font-medium text-gray-800">Ignorar requisitos</span>
         </label>
 
         <button
